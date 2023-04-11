@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"runtime/debug"
 	"strconv"
 	"strings"
 	"time"
@@ -39,6 +40,8 @@ func (g gzipResponseWriter) Write(b []byte) (int, error) {
 }
 
 func main() {
+	previousGCPercent := debug.SetGCPercent(1000)
+	fmt.Printf("Porcentagem anterior do GC: %d\n", previousGCPercent)
 	q := quick.New(quick.Config{
 		//ReadTimeout:    1 * time.Second,
 		//WriteTimeout:   5 * time.Second,
