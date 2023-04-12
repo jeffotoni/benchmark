@@ -1,14 +1,12 @@
 # Benchmark
 
-Este cenário é de client server, onde criamos a comunicação entre dois seviços ambos utilizando rEST e o método GET 
-e temos um RESPONSE em JSON vindo do nosso server.client.
+Este cenário é de client server, onde criamos a comunicação entre dois seviços ambos utilizando rEST e o método GET, temos um RESPONSE em JSON vindo do nosso server.client que irá receber requisições de nossos serviços feito em diversas linguagens de programação.
 
-A comunicação entre os serviços mais a saída conseguimos observar o tempo gasto em diversas linguagens de programação.
+A comunicação entre estes dois serviços conseguiremos observar o tempo gasto pelas requisições  e diversas outras variáveis que o k6 irá disponibilizar.
 
 ![diagrama](./diagrama-stress.png)
 
-O nosso objetivo é ter uma noção quando o assunto é memória, cpu, quantidade de requisições suportadas e os 
-tempos médios de respostas, nada muito complexo só para matar a curiosidade mesmo.
+O nosso objetivo é ter uma noção quando o assunto é memória, cpu, quantidade de requisições suportadas e os tempos médios de respostas, nada muito complexo só para matar a curiosidade mesmo.
 
 ### Exemplo de saída do teste
 ```bash
