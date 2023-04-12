@@ -5,6 +5,8 @@ e temos um RESPONSE em JSON vindo do nosso server.client.
 
 A comunicação entre os serviços mais a saída conseguimos observar o tempo gasto em diversas linguagens de programação.
 
+![diagrama](./diagrama-stress.png)
+
 O nosso objetivo é ter uma noção quando o assunto é memória, cpu, quantidade de requisições suportadas e os 
 tempos médios de respostas, nada muito complexo só para matar a curiosidade mesmo.
 
