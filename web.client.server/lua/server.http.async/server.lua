@@ -47,10 +47,9 @@ local function onRequest(client)
     client:close()
 end
 
-
-
 local server = socket.bind("localhost", 8080)
 print("Server listening at http://localhost:8080")
+print("\027[0;33m[GET]\027[0m \027[0;33m/v1/customer/get\027[0m")
 
 copas.addserver(server, onRequest)
 copas.loop()
