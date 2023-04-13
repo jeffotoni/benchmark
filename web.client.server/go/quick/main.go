@@ -2,14 +2,12 @@ package main
 
 import (
 	"bytes"
-	"compress/gzip"
 	"context"
 	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"os"
-	"runtime/debug"
 	"strconv"
 	"strings"
 	"time"
@@ -40,37 +38,30 @@ func (g gzipResponseWriter) Write(b []byte) (int, error) {
 }
 
 func main() {
-	previousGCPercent := debug.SetGCPercent(1000)
-	fmt.Printf("Porcentagem anterior do GC: %d\n", previousGCPercent)
-	q := quick.New(quick.Config{
-		//ReadTimeout:    1 * time.Second,
-		//WriteTimeout:   5 * time.Second,
-		//IdleTimeout:    10 * time.Second,
-		//MaxHeaderBytes: 1 << 20, // 1 MB
-	})
+	q := quick.New()
 
-	q.Use(func(next http.Handler) http.Handler {
-		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			if !strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
-				next.ServeHTTP(w, r)
-				return
-			}
+	// q.Use(func(next http.Handler) http.Handler {
+	// 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	// 		if !strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
+	// 			next.ServeHTTP(w, r)
+	// 			return
+	// 		}
 
-			w.Header().Set("Content-Encoding", "gzip")
-			gz := gzip.NewWriter(w)
-			defer gz.Close()
+	// 		w.Header().Set("Content-Encoding", "gzip")
+	// 		gz := gzip.NewWriter(w)
+	// 		defer gz.Close()
 
-			gzw := gzipResponseWriter{ResponseWriter: w, Writer: gz}
-			next.ServeHTTP(gzw, r)
-		})
-	})
+	// 		gzw := gzipResponseWriter{ResponseWriter: w, Writer: gz}
+	// 		next.ServeHTTP(gzw, r)
+	// 	})
+	// })
 
-	q.Use(func(next http.Handler) http.Handler {
-		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			w.Header().Set("Cache-Control", "max-age=3600") // 1 hora de cache
-			next.ServeHTTP(w, r)
-		})
-	})
+	// q.Use(func(next http.Handler) http.Handler {
+	// 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	// 		w.Header().Set("Cache-Control", "max-age=3600") // 1 hora de cache
+	// 		next.ServeHTTP(w, r)
+	// 	})
+	// })
 
 	// ReadTimeout:    5 * time.Second,
 	// WriteTimeout:   10 * time.Second,
@@ -94,6 +85,7 @@ func main() {
 }
 
 func Get(c *quick.Ctx) (err error) {
+	//println("More:", c.MoreRequests)
 	c.Set("Content-Type", "application/json")
 	c.Set("Engine", "Go")
 	c.Set("Location", "/v1/client/get")
