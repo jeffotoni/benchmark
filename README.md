@@ -15,6 +15,7 @@ para desenvolvimento de backend linguagens como:
  - Javascript Deno
  - Dart
  - Lua
+ - Elixir
 
 Poderemos propor diversos cenários e linguagens de programação e implementar podem ficar a vontade em enviar seu PR.
 Tudo é para matar a curiosidade mesmo, nada muito complexo quando tratamos de desenvolvimento em backend para web.
