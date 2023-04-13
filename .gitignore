@@ -248,11 +248,13 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 
-/_build
-/cover
-/deps
-/doc
-/.fetch
+# Elixir
+mix.lock
+_build
+cover
+deps
+doc
+.fetch
 erl_crash.dump
 *.ez
 *.beam
