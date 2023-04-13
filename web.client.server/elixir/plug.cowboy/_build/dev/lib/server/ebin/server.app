@@ -1,0 +1,9 @@
+{application,server,
+             [{applications,[kernel,stdlib,elixir,logger,inets,cowboy,plug,
+                             plug_cowboy,httpoison]},
+              {description,"server"},
+              {modules,['Elixir.Server.Application',
+                        'Elixir.Server.HttpClient','Elixir.Server.Router']},
+              {registered,[]},
+              {vsn,"0.1.0"},
+              {mod,{'Elixir.Server.Application',[]}}]}.
