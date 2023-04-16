@@ -18,8 +18,8 @@ import (
 var Domain string = os.Getenv("DOMAIN")
 
 var client = &http.Client{Transport: &http.Transport{
-	DisableKeepAlives: true,
-	//MaxIdleConns:      10,
+	DisableKeepAlives: false,
+	MaxIdleConns:      5,
 }}
 
 func init() {
@@ -27,20 +27,14 @@ func init() {
 		Domain = "http://127.0.0.1:3000/v1/customer"
 	}
 }
-
-type gzipResponseWriter struct {
-	http.ResponseWriter
-	io.Writer
-}
-
-func (g gzipResponseWriter) Write(b []byte) (int, error) {
-	return g.Writer.Write(b)
-}
-
 func main() {
-	app := fiber.New(fiber.Config{
-		BodyLimit: 5 * 1024,
-	})
+	app := fiber.New()
+
+	// Configuração de reutilização de conexão
+	// app.Use(func(c *fiber.Ctx) error {
+	// 	c.Set("Connection", "keep-alive")
+	// 	return c.Next()
+	// })
 
 	app.Get("/v1/client/get", Get)
 	app.Post("/v1/client/post", Post)
