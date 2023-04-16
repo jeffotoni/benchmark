@@ -121,6 +121,7 @@ func Post(c *quick.Ctx) (err error) {
 	c.Set("Content-Length", length)
 	return c.Status(quick.StatusOK).Byte(body)
 }
+
 func Concat(strs ...string) string {
 	var sb strings.Builder
 	for i := 0; i < len(strs); i++ {

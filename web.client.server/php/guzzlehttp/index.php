@@ -23,6 +23,9 @@ $token = 'x3939393939x39393';
 
 try {
     $response = $client->get($url1, ['headers' => ['Authorization' => "Bearer $token"]]);
+    header("Content-Type: application/json");
+    header("Engine: PHP");
+    header("Location: /v1/client/post");
     echo $response->getBody();
     //$data1 = json_decode($response->getBody(), true);
     //echo($data1);
@@ -37,5 +40,6 @@ try {
 }
 
 } else {
+    header("Engine: PHP");
     header("HTTP/1.1 404 Not Found");
 }
