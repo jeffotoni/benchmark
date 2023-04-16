@@ -20,6 +20,18 @@ para desenvolvimento de backend linguagens como:
 Poderemos propor diversos cenários e linguagens de programação e implementar podem ficar a vontade em enviar seu PR.
 Tudo é para matar a curiosidade mesmo, nada muito complexo quando tratamos de desenvolvimento em backend para web.
 
+A máquina que está sendo usada para fazer os testes é:
+
+| Coluna 1 | Coluna 2 |
+|----------|----------|
+| Vendor | Genuine Intel |
+| Model | Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz |
+| Cache | 12288kb |
+| siblings/núcleos | 12 |
+| bogomips | 5199.98 |
+| address sizes | 39 bits physical, 48 bits virtual |
+
+
 Usamos o k6 para fazer nossos testes de stress.
 
 ```bash
