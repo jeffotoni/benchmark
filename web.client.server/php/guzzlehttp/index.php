@@ -14,7 +14,6 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Promise;
 use GuzzleHttp\Exception\RequestException;
 
-// Verifique se a requisição é do tipo GET e tem o caminho correto
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/v1/client/get') {
 
 $client = new Client();
@@ -23,19 +22,22 @@ $token = 'x3939393939x39393';
 
 try {
     $response = $client->get($url1, ['headers' => ['Authorization' => "Bearer $token"]]);
+    $content = $response->getBody();
+    $length = strlen($content);
+    header("HTTP/1.1 200 OK");
     header("Content-Type: application/json");
     header("Engine: PHP");
-    header("Location: /v1/client/post");
-    echo $response->getBody();
-    //$data1 = json_decode($response->getBody(), true);
-    //echo($data1);
-
+    header("Date: " . date("D, d M Y H:i:s T"));
+    header("Content-Length: " . $length);
+    echo $content;
 } catch (RequestException $e) {
+    header("HTTP/1.1 500 Internal Server Error");
     echo "RequestException: " . $e->getMessage() . "\n";
     if ($e->hasResponse()) {
         echo "Response: " . $e->getResponse()->getBody() . "\n";
     }
 } catch (Exception $e) {
+    header("HTTP/1.1 500 Internal Server Error");
     echo "Exception: " . $e->getMessage() . "\n";
 }
 

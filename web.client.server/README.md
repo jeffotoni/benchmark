@@ -8,6 +8,18 @@ A comunicação entre estes dois serviços conseguiremos observar o tempo gasto 
 
 O nosso objetivo é ter uma noção quando o assunto é memória, cpu, quantidade de requisições suportadas e os tempos médios de respostas, nada muito complexo só para matar a curiosidade mesmo.
 
+A máquina que está sendo usada para fazer os testes é:
+
+| Coluna 1 | Coluna 2 |
+|----------|----------|
+| Vendor | Genuine Intel |
+| Model | Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz |
+| Cache | 12288kb |
+| siblings/núcleos | 12 |
+| bogomips | 5199.98 |
+| address sizes | 39 bits physical, 48 bits virtual |
+
+
 ### Exemplo de saída do teste
 ```bash
 stress.api.client git:(master) ✗ k6 run -d 90s -u 100 k6/script-get.js
