@@ -16,7 +16,14 @@ use GuzzleHttp\Exception\RequestException;
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/v1/client/get') {
 
-$client = new Client();
+$client = new Client([
+    'headers' => [
+        //'Connection' => 'keep-alive',
+        'User-Agent' => 'Guzzle/PHP',
+    ],
+    'timeout' => 3,
+]);
+
 $url1 = 'http://127.0.0.1:3000/v1/customer/get';
 $token = 'x3939393939x39393';
 
