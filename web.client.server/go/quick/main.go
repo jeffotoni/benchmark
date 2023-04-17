@@ -47,7 +47,7 @@ func Get(c *quick.Ctx) (err error) {
 	c.Set("Location", "/v1/client/get")
 	c.Set("Date", time.Now().Format("2006-01-02T15:04:05.000Z"))
 
-	body, code, err := AdapterConnect("get", nil)
+	body, code, err := AdapterConnect(Domain, "get", nil)
 	if err != nil {
 		log.Println("Error Server connect:", err, " code:", code)
 		return c.Status(quick.StatusInternalServerError).SendString("")
@@ -64,7 +64,7 @@ func Post(c *quick.Ctx) (err error) {
 	c.Set("Date", time.Now().Format("2006-01-02T15:04:05.000Z"))
 
 	body := c.Body()
-	body, code, err := AdapterConnect("post", body)
+	body, code, err := AdapterConnect(Domain, "post", body)
 	if err != nil {
 		log.Println("Error Server connect:", err, " code:", code)
 		return c.Status(quick.StatusInternalServerError).SendString("")
@@ -82,11 +82,11 @@ func Concat(strs ...string) string {
 	return sb.String()
 }
 
-func AdapterConnect(method string, bodyPost []byte) (body []byte, code int, err error) {
+func AdapterConnect(Url, method string, bodyPost []byte) (body []byte, code int, err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(1)*time.Second)
 	defer cancel()
 
-	var Url string = Domain
+	//var Url string = Domain
 	var req = &http.Request{}
 
 	if strings.ToUpper(method) == "GET" {

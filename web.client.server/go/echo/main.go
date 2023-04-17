@@ -19,8 +19,8 @@ import (
 var Domain string = os.Getenv("DOMAIN")
 
 var client = &http.Client{Transport: &http.Transport{
-	DisableKeepAlives: true,
-	//MaxIdleConns:      10,
+	DisableKeepAlives: false,
+	MaxIdleConns:      5,
 }}
 
 func init() {

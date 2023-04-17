@@ -1,4 +1,4 @@
-module github.com/jeffotoni/benchmark/web.client.server/go/quick
+module github.com/jeffotoni/goexample/stress.api.client/go.quick
 
 go 1.20
 

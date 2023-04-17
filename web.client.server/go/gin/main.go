@@ -17,8 +17,8 @@ import (
 )
 
 var client = &http.Client{Transport: &http.Transport{
-	DisableKeepAlives: true,
-	//MaxIdleConns:      10,
+	DisableKeepAlives: false,
+	MaxIdleConns:      5,
 }}
 
 var (
@@ -58,16 +58,13 @@ func main() {
 		c.Header("Engine", "Go")
 		c.Header("Location", "/v1/client/post")
 		c.Header("Date", time.Now().Format("2006-01-02T15:04:05.000Z"))
-		//s1 := time.Now()
+
 		body, code, err := AdapterConnect("get", nil)
-		//fmt.Println("time:", time.Since(s1))
 		if err != nil {
 			log.Println("Error Server connect:", err, " code:", code)
 			c.String(http.StatusBadRequest, "Error reading request body: "+err.Error())
 			return
 		}
-		// end := time.Now().Sub(start)
-		// log.Println("Service Adapter [POST] timeTotal:", end.String())
 		length := strconv.Itoa(len(body))
 		c.Header("Content-Length", length)
 		c.String(http.StatusOK, string(body))

@@ -30,12 +30,6 @@ func init() {
 func main() {
 	app := fiber.New()
 
-	// Configuração de reutilização de conexão
-	// app.Use(func(c *fiber.Ctx) error {
-	// 	c.Set("Connection", "keep-alive")
-	// 	return c.Next()
-	// })
-
 	app.Get("/v1/client/get", Get)
 	app.Post("/v1/client/post", Post)
 
