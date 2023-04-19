@@ -249,6 +249,7 @@ dist
 .yarn/install-state.gz
 
 vendor
+__pycache__
 
 # Elixir
 mix.lock
