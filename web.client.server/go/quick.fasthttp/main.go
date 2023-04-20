@@ -16,17 +16,25 @@ import (
 var Domain string = os.Getenv("DOMAIN")
 
 var fclient = &fasthttp.Client{
-	MaxIdleConnDuration: 5 * time.Second,
+	MaxIdleConnDuration: 3 * time.Second,
+	//MaxConnDuration:     90 * time.Second,
 }
 
 func init() {
 	if len(Domain) == 0 {
-		Domain = "http://127.0.0.1:3000/v1/customer"
+		Domain = "http://127.0.0.1:3000/v1/customer/get"
 	}
 }
 
 func main() {
-	q := quick.New()
+	q := quick.New(quick.Config{
+		BodyLimit:      2 * 1024 * 1024,
+		MaxBodySize:    2 * 1024 * 1024,
+		MaxHeaderBytes: 1 * 1024 * 1024,
+		RouteCapacity:  1000,
+		MoreRequests:   0, // valor de equilibrio
+	})
+
 	q.Get("/v1/client/get", Get)
 	log.Println("Run Server port 0.0.0.0:8080")
 	log.Println("[GET]  /v1/client/get")
@@ -56,9 +64,10 @@ func AdapterConnectFast(url, method string, bodyPost []byte) (body []byte, code 
 	defer fasthttp.ReleaseRequest(req)
 	defer fasthttp.ReleaseResponse(resp)
 
-	if strings.ToUpper(method) == "GET" {
-		url = Concat(url, "/get")
-	}
+	// if strings.ToUpper(method) == "GET" {
+	// 	url = Concat(url, "/get")
+	// }
+
 	req.SetRequestURI(url)
 	req.Header.SetMethod(method)
 
