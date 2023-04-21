@@ -11,7 +11,7 @@ if (isMainThread) {
         res.status(200).json({ name: 'pong' });
     });
 
-    app.get('/v1/client/get', (req, res) => {
+    app.get('/v1/user', (req, res) => {
         const worker = new Worker(__filename);
 
         worker.on('message', ({ statusCode, data }) => {
@@ -39,7 +39,7 @@ if (isMainThread) {
         method: 'GET',
         host: '127.0.0.1',
         port: 3000,
-        path: '/v1/customer/get',
+        path: '/v1/avatar',
         headers: {
             'Content-Type': 'application/json; charset=UTF-8',
             'Accept': 'application/json',

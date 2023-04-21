@@ -11,7 +11,7 @@ app.get("/ping", (req: Request, res: Response) => {
   res.status(200).json({ name: "pong" });
 });
 
-app.get("/v1/client/get", async (req: Request, res: Response, next: NextFunction) => {
+app.get("/v1/user", async (req: Request, res: Response, next: NextFunction) => {
   res.setHeader("Content-Type", "application/json");
 
   try {
@@ -19,7 +19,7 @@ app.get("/v1/client/get", async (req: Request, res: Response, next: NextFunction
       method: "GET",
       host: "127.0.0.1",
       port: 3000,
-      path: "/v1/customer/get",
+      path: "/v1/avatar",
       headers: {
         "Content-Type": "application/json; charset=UTF-8",
         Accept: "application/json",

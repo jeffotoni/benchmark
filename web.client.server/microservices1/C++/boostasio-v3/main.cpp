@@ -36,11 +36,11 @@ private:
     }
 
     void handle_request() {
-        if (req_.method() == http::verb::get && req_.target() == "/v1/client/get") {
+        if (req_.method() == http::verb::get && req_.target() == "/v1/user") {
             auto self = shared_from_this();
             boost::asio::io_context ioc;
             std::shared_ptr<AsyncHttpClient> client = std::make_shared<AsyncHttpClient>(
-                ioc, "localhost", "3000", "/v1/customer/get",
+                ioc, "localhost", "3000", "/v1/avatar",
                 [self](const std::string& response_body) {
                     self->res_.result(http::status::ok);
                     self->res_.set(http::field::content_type, "application/json");

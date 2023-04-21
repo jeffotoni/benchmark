@@ -33,10 +33,10 @@ var (
 
 func main() {
 
-	http.HandleFunc("/v1/client/get", Get)
+	http.HandleFunc("/v1/user", Get)
 	http.HandleFunc("/v1/client/post", Post)
 	log.Println("Run Server port 0.0.0.0:8080")
-	log.Println("[GET]  /v1/client/get")
+	log.Println("[GET]  /v1/user")
 	log.Println("[POST] /v1/client/post")
 
 	server := &http.Server{
@@ -52,7 +52,7 @@ func main() {
 func Get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Engine", "Go")
-	w.Header().Set("Location", "/v1/client/get")
+	w.Header().Set("Location", "/v1/user")
 	w.Header().Set("Date", time.Now().Format("2006-01-02T15:04:05.000Z"))
 
 	body, code, err := AdapterConnect("get", nil)

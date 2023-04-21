@@ -1,10 +1,10 @@
-module github.com/jeffotoni/goexample/stress.api.client/go.quick
+module github.com/jeffotoni/benchmark/web.client.server/microservices1/go/quick.fasthttp
 
 go 1.20
 
 require (
-	github.com/jeffotoni/quick v0.0.0-20230415145056-3e88a177d04d
-	github.com/valyala/fasthttp v1.45.0
+	github.com/jeffotoni/quick v0.0.0-20230420221246-569ff5f09c50
+	github.com/valyala/fasthttp v1.46.0
 )
 
 require (

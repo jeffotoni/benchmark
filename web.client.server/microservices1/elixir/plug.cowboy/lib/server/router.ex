@@ -6,13 +6,13 @@ defmodule Server.Router do
   plug :match
   plug :dispatch
 
-  get "/v1/client/get" do
+  get "/v1/user" do
     case HttpClient.fetch_data() do
       {:ok, body} ->
         conn
         |> put_resp_header("Content-Type", "application/json")
         |> put_resp_header("Engine", "Elixir")
-        |> put_resp_header("Location", "/v1/client/get")
+        |> put_resp_header("Location", "/v1/user")
         |> put_resp_header("Date", DateTime.utc_now() |> DateTime.to_iso8601())
         |> put_resp_header("Content-Length", Integer.to_string(byte_size(body)))
         |> send_resp(200, body)
@@ -20,7 +20,7 @@ defmodule Server.Router do
         conn
         |> put_resp_header("Content-Type", "application/json")
         |> put_resp_header("Engine", "Elixir")
-        |> put_resp_header("Location", "/v1/client/get")
+        |> put_resp_header("Location", "/v1/user")
         |> put_resp_header("Date", DateTime.utc_now() |> DateTime.to_iso8601())
         |> put_resp_header("Content-Length", Integer.to_string(byte_size(error)))
         |> send_resp(500, error)
@@ -32,7 +32,7 @@ defmodule Server.Router do
     conn
     |> put_resp_header("Content-Type", "application/json")
     |> put_resp_header("Engine", "Elixir")
-    |> put_resp_header("Location", "/v1/client/get")
+    |> put_resp_header("Location", "/v1/user")
     |> put_resp_header("Date", DateTime.utc_now() |> DateTime.to_iso8601())
     |> send_resp(404, "Not found")
   end

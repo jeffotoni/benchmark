@@ -43,11 +43,11 @@ func main() {
 	// e.Use(middleware.Logger())
 	// e.Use(middleware.Recover())
 
-	e.GET("/v1/client/get", Get)
+	e.GET("/v1/user", Get)
 	e.POST("/v1/client/post", Post)
 
 	log.Println("Run Server port 0.0.0.0:8080")
-	log.Println("[GET]  /v1/client/get")
+	log.Println("[GET]  /v1/user")
 	log.Println("[POST] /v1/client/post")
 	e.Start("0.0.0.0:8080")
 }
@@ -55,7 +55,7 @@ func main() {
 func Get(c echo.Context) (err error) {
 	c.Response().Header().Set("Content-Type", "application/json")
 	c.Response().Header().Set("Engine", "Go")
-	c.Response().Header().Set("Location", "/v1/client/get")
+	c.Response().Header().Set("Location", "/v1/user")
 	c.Response().Header().Set("Date", time.Now().Format("2006-01-02T15:04:05.000Z"))
 
 	body, code, err := AdapterConnect("get", nil)

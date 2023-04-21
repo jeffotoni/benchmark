@@ -12,7 +12,7 @@ app.get("/ping", async(_, reply) => {
     return { name: "pong" };
 });
 
-app.get("/v1/client/get", async(_, reply) => {
+app.get("/v1/user", async(_, reply) => {
     const requestOptions = {
         method: "GET",
         headers: {
@@ -25,7 +25,7 @@ app.get("/v1/client/get", async(_, reply) => {
     try {
         const fetch = await
         import ("node-fetch");
-        const response = await fetch.default("http://127.0.0.1:3000/v1/customer/get", requestOptions);
+        const response = await fetch.default("http://127.0.0.1:3000/v1/avatar", requestOptions);
         if (response.status !== 200) {
             throw new Error(`Did not get an OK from the server. Code: ${response.status}`);
         }

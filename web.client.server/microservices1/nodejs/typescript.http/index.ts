@@ -9,7 +9,7 @@ const server = http.createServer(async (req: IncomingMessage, res: ServerRespons
     res.setHeader("Content-Type", "application/json");
     res.statusCode = 200;
     res.end(JSON.stringify({ name: "pong" }));
-  } else if (req.url === "/v1/client/get" && req.method === "GET") {
+  } else if (req.url === "/v1/user" && req.method === "GET") {
     res.setHeader("Content-Type", "application/json");
 
     try {
@@ -17,7 +17,7 @@ const server = http.createServer(async (req: IncomingMessage, res: ServerRespons
         method: "GET",
         host: "127.0.0.1",
         port: 3000,
-        path: "/v1/customer/get",
+        path: "/v1/avatar",
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
           Accept: "application/json",

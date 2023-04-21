@@ -36,7 +36,7 @@ private:
     }
 
     void handle_request() {
-        if (req_.method() == http::verb::get && req_.target() == "/v1/client/get") {
+        if (req_.method() == http::verb::get && req_.target() == "/v1/user") {
             res_.version(req_.version());
             res_.keep_alive(req_.keep_alive());
             res_.set(http::field::server, "Beast");

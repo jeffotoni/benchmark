@@ -14,10 +14,10 @@ $app = AppFactory::create();
 
 $app->addErrorMiddleware(true, true, true);
 
-$app->get('/v1/client/get', function (Request $request, Response $response, array $args) {
+$app->get('/v1/user', function (Request $request, Response $response, array $args) {
 
 $client = new Client();
-$url1 = 'http://127.0.0.1:3000/v1/customer/get';
+$url1 = 'http://127.0.0.1:3000/v1/avatar';
 $token = 'x3939393939x39393';
 
 try {

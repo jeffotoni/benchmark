@@ -32,11 +32,11 @@ func init() {
 func main() {
 	q := quick.New()
 
-	q.Get("/v1/client/get", Get)
+	q.Get("/v1/user", Get)
 	q.Post("/v1/client/post", Post)
 
 	log.Println("Run Server port 0.0.0.0:8080")
-	log.Println("[GET]  /v1/client/get")
+	log.Println("[GET]  /v1/user")
 	log.Println("[POST] /v1/client/post")
 	q.Listen("0.0.0.0:8080")
 }
@@ -44,7 +44,7 @@ func main() {
 func Get(c *quick.Ctx) (err error) {
 	c.Set("Content-Type", "application/json")
 	c.Set("Engine", "Go/Quick")
-	c.Set("Location", "/v1/client/get")
+	c.Set("Location", "/v1/user")
 	c.Set("Date", time.Now().Format("2006-01-02T15:04:05.000Z"))
 
 	body, code, err := AdapterConnect(Domain, "get", nil)

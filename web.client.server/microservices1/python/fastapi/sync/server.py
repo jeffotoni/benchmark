@@ -7,9 +7,9 @@ from datetime import datetime
 
 app = FastAPI()
 
-@app.get("/v1/client/get")
+@app.get("/v1/user")
 async def get_client():
-    response = requests.get("http://localhost:3000/v1/customer/get")
+    response = requests.get("http://localhost:3000/v1/avatar")
     customer_data = response.json()
 
     response_headers = {

@@ -30,11 +30,11 @@ func init() {
 func main() {
 	app := fiber.New()
 
-	app.Get("/v1/client/get", Get)
+	app.Get("/v1/user", Get)
 	app.Post("/v1/client/post", Post)
 
 	log.Println("Run Server port 0.0.0.0:8080")
-	log.Println("[GET]  /v1/client/get")
+	log.Println("[GET]  /v1/user")
 	log.Println("[POST] /v1/client/post")
 	app.Listen("0.0.0.0:8080")
 }
@@ -42,7 +42,7 @@ func main() {
 func Get(c *fiber.Ctx) (err error) {
 	c.Set("Content-Type", "application/json")
 	c.Set("Engine", "Go/Fiber")
-	c.Set("Location", "/v1/client/get")
+	c.Set("Location", "/v1/user")
 	c.Set("Date", time.Now().Format("2006-01-02T15:04:05.000Z"))
 
 	body, code, err := AdapterConnect("get", nil)

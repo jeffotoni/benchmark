@@ -14,7 +14,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Promise;
 use GuzzleHttp\Exception\RequestException;
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/v1/client/get') {
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/v1/user') {
 
 $client = new Client([
     'headers' => [
@@ -24,7 +24,7 @@ $client = new Client([
     'timeout' => 3,
 ]);
 
-$url1 = 'http://127.0.0.1:3000/v1/customer/get';
+$url1 = 'http://127.0.0.1:3000/v1/avatar';
 $token = 'x3939393939x39393';
 
 try {

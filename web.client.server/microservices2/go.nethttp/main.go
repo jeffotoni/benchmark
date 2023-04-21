@@ -3,16 +3,37 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 	"time"
 )
 
+var (
+	M2_DOMAIN string = os.Getenv("M2_DOMAIN")
+	M2_PATH   string = os.Getenv("M2_PATH")
+	M2_PORT   string = os.Getenv("M2_PORT")
+	URLM2     string
+)
+
+func init() {
+	if len(M2_DOMAIN) == 0 {
+		M2_DOMAIN = "0.0.0.0"
+	}
+	if len(M2_PATH) == 0 {
+		M2_PATH = "/v1/avatar"
+	}
+	if len(M2_PORT) == 0 {
+		M2_PORT = "3000"
+	}
+	URLM2 = Concat(M2_DOMAIN, ":", M2_PORT)
+}
+
 func main() {
-	http.HandleFunc("/v1/customer/get", MockGet)
-	log.Println("Run Server Mock 0.0.0.0:3000")
-	log.Println("[GET] /v1/customer/get")
-	log.Fatal(http.ListenAndServe("0.0.0.0:3000", nil))
+	http.HandleFunc(M2_PATH, MockGet)
+	log.Println("Run Server Mock", URLM2)
+	log.Println("[GET] ", M2_PATH)
+	log.Fatal(http.ListenAndServe(URLM2, nil))
 }
 
 func MockGet(w http.ResponseWriter, r *http.Request) {
@@ -21,7 +42,7 @@ func MockGet(w http.ResponseWriter, r *http.Request) {
 	length := strconv.Itoa(len(mock))
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Engine", "Go-net/http")
-	w.Header().Set("Location", "/v1/customer/get")
+	w.Header().Set("Location", M2_PATH)
 	w.Header().Set("Date", date)
 	w.Header().Set("Content-Length", length)
 	w.WriteHeader(http.StatusOK)

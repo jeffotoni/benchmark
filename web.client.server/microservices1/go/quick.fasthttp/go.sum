@@ -1,10 +1,10 @@
 github.com/andybalholm/brotli v1.0.5 h1:8uQZIdzKmjc/iuPu7O2ioW48L81FgatrcpfFmiq/cCs=
 github.com/andybalholm/brotli v1.0.5/go.mod h1:fO7iG3H7G2nSZ7m0zPUDn85XEX2GTukHGRSepvi9Eig=
-github.com/jeffotoni/quick v0.0.0-20230415145056-3e88a177d04d h1:ihGNKzQe0aFOm+Tdglupfu44/6rfynL1jhvZyFoUSZo=
-github.com/jeffotoni/quick v0.0.0-20230415145056-3e88a177d04d/go.mod h1:Q6QgCMmtWvoY1+x45mp/M+S6E+X+swyjknFV6VfT8Qg=
+github.com/jeffotoni/quick v0.0.0-20230420221246-569ff5f09c50 h1:FfqFqrjLs/ZjGN5/vQcD3RyO90q12i5tD68IgQWu7lw=
+github.com/jeffotoni/quick v0.0.0-20230420221246-569ff5f09c50/go.mod h1:Q6QgCMmtWvoY1+x45mp/M+S6E+X+swyjknFV6VfT8Qg=
 github.com/klauspost/compress v1.16.3 h1:XuJt9zzcnaz6a16/OU53ZjWp/v7/42WcR5t2a0PcNQY=
 github.com/klauspost/compress v1.16.3/go.mod h1:ntbaceVETuRiXiv4DpjP66DpAtAGkEQskQzEyD//IeE=
 github.com/valyala/bytebufferpool v1.0.0 h1:GqA5TC/0021Y/b9FG4Oi9Mr3q7XYx6KllzawFIhcdPw=
 github.com/valyala/bytebufferpool v1.0.0/go.mod h1:6bBcMArwyJ5K/AmCkWv1jt77kVWyCJ6HpOuEn7z0Csc=
-github.com/valyala/fasthttp v1.45.0 h1:zPkkzpIn8tdHZUrVa6PzYd0i5verqiPSkgTd3bSUcpA=
-github.com/valyala/fasthttp v1.45.0/go.mod h1:k2zXd82h/7UZc3VOdJ2WaUqt1uZ/XpXAfE9i+HBC3lA=
+github.com/valyala/fasthttp v1.46.0 h1:6ZRhrFg8zBXTRYY6vdzbFhqsBd7FVv123pV2m9V87U4=
+github.com/valyala/fasthttp v1.46.0/go.mod h1:k2zXd82h/7UZc3VOdJ2WaUqt1uZ/XpXAfE9i+HBC3lA=

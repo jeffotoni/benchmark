@@ -53,7 +53,7 @@ func main() {
 		c.String(http.StatusOK, "pong")
 	})
 
-	r.GET("/v1/client/get", func(c *gin.Context) {
+	r.GET("/v1/user", func(c *gin.Context) {
 		c.Header("Content-Type", "application/json")
 		c.Header("Engine", "Go")
 		c.Header("Location", "/v1/client/post")

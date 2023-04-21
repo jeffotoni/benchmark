@@ -12,9 +12,9 @@ void main() async {
 }
 
 Future<void> handleRequest(HttpRequest request) async {
-  if (request.method == 'GET' && request.uri.path == '/v1/client/get') {
+  if (request.method == 'GET' && request.uri.path == '/v1/user') {
     try {
-      var response = await http.get(Uri.parse('http://localhost:3000/v1/customer/get'));
+      var response = await http.get(Uri.parse('http://localhost:3000/v1/avatar'));
       if (response.statusCode == 200) {
         var jsonResponse = json.decode(response.body);
 

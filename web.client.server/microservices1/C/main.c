@@ -33,7 +33,7 @@ void fetch_customer_data(aco_t* co) {
             exit(EXIT_FAILURE);
         }
 
-        curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:3000/v1/customer/get");
+        curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:3000/v1/avatar");
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, headerfile);
 

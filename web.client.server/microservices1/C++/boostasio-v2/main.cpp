@@ -19,7 +19,7 @@ std::string fetch_customer_data(asio::io_context& ioc) {
 
     stream.connect(results);
 
-    http::request<http::empty_body> req{http::verb::get, "/v1/customer/get", 11};
+    http::request<http::empty_body> req{http::verb::get, "/v1/avatar", 11};
     req.set(http::field::host, "localhost");
     req.set(http::field::user_agent, "cpp-client");
 
@@ -40,7 +40,7 @@ void handle_request(http::request<http::string_body>& req, http::response<http::
     res.keep_alive(false);
 
    // if (req.method() == http::verb::get) {
-    if (req.method() == http::verb::get && req.target() == "/v1/client/get") {
+    if (req.method() == http::verb::get && req.target() == "/v1/user") {
         res.result(http::status::ok);
         res.set(http::field::content_type, "application/json");
         res.body() = fetch_customer_data(ioc);

@@ -12,7 +12,7 @@ local ltn12 = require("ltn12")
 
 local function getRemoteData()
     local response_body = {}
-    local url = "http://127.0.0.1:3000/v1/customer/get"
+    local url = "http://127.0.0.1:3000/v1/avatar"
     local result, response_code, response_headers, response_status = http.request {
         url = url,
         method = "GET",
@@ -25,7 +25,7 @@ local function onRequest(client)
     local request, error = client:receive('*l')
     local path = string.match(request, 'GET (.-) HTTP')
 
-    if path == "/v1/client/get" then
+    if path == "/v1/user" then
         local data, code = getRemoteData()
 
         if code == 200 then
@@ -43,7 +43,7 @@ end
 
 local server = socket.bind("localhost", 8080)
 print("Server listening at http://localhost:8080")
-print("\027[0;33m[GET]\027[0m \027[0;33m/v1/customer/get\027[0m")
+print("\027[0;33m[GET]\027[0m \027[0;33m/v1/avatar\027[0m")
 
 while true do
     local client = server:accept()

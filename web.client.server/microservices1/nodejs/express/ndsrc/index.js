@@ -9,7 +9,7 @@ app.get("/ping", (req, res) => {
     res.status(200).json({ name: "pong" });
 });
 
-app.get("/v1/client/get", (req, res) => {
+app.get("/v1/user", (req, res) => {
     res.setHeader("Content-Type", "application/json");
 
     let rpromisse = new Promise((resolve, reject) => {
@@ -17,7 +17,7 @@ app.get("/v1/client/get", (req, res) => {
             method: 'GET',
             host: '127.0.0.1',
             port: 3000,
-            path: '/v1/customer/get',
+            path: '/v1/avatar',
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
                 'Accept': 'application/json',

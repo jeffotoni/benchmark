@@ -4,9 +4,9 @@ self.onmessage = async (event) => {
   const req = new Request(reqEvent.url, { method: reqEvent.method, headers: reqEvent.headers });
   const url = new URL(req.url);
 
-  if (req.method === "GET" && url.pathname === "/v1/client/get") {
+  if (req.method === "GET" && url.pathname === "/v1/user") {
     try {
-      const response = await fetch("http://localhost:3000/v1/customer/get");
+      const response = await fetch("http://localhost:3000/v1/avatar");
       if (response.ok) {
         const data = await response.json();
         self.postMessage({ status: 200, body: JSON.stringify(data) });

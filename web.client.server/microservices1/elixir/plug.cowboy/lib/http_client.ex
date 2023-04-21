@@ -4,7 +4,7 @@ defmodule Server.HttpClient do
   @timeout 2000
 
   def fetch_data do
-    case HTTPoison.get("http://localhost:3000/v1/customer/get", [], [timeout: @timeout]) do
+    case HTTPoison.get("http://localhost:3000/v1/avatar", [], [timeout: @timeout]) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         {:ok, body}
       {:error, %HTTPoison.Error{reason: reason}} ->

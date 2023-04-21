@@ -1,0 +1,58 @@
+version: '3'
+services:
+  m1:
+    build: ./microservices1/go/quick.fasthttp
+    #build: ./microservices1/go/quick
+    #build: ./microservices1/go/echo
+    #build: ./microservices1/go/fiber
+    #build: ./microservices1/go/net.http1
+    #build: ./microservices1/go/net.http2
+    #build: ./microservices1/go/gin
+    #build: ./microservices1/go/fiber.fasthttp
+    #build: ./microservices1/elixir/plug.cowboy
+    #build: ./microservices1/deno/fetch
+    #build: ./microservices1/deno/server
+    #build: ./microservices1/deno/worker
+    #build: ./microservices1/deno/worker.pool
+    #build: ./microservices1/dart/server
+    #build: ./microservices1/C++/boostasio
+    #build: ./microservices1/C++/boostasio-get
+    #build: ./microservices1/C++/boostasio-v2
+    #build: ./microservices1/C++/boostasio-v3
+    #build: ./microservices1/C++/cpprestsdk
+    #build: ./microservices1/C++/cpprestsdk-threads
+    #build: ./microservices1/C++/cutelyst
+    #build: ./microservices1/C
+    #build: ./microservices1/java/spring.boot
+    #build: ./microservices1/lua/server.http
+    #build: ./microservices1/lua/server.http.async
+    #build: ./microservices1/nodejs/express
+    #build: ./microservices1/nodejs/express.thread
+    #build: ./microservices1/nodejs/fastify
+    #build: ./microservices1/nodejs/typescript.express
+    #build: ./microservices1/nodejs/typescript.http
+    #build: ./microservices1/php/guzzlehttp
+    #build: ./microservices1/php/slim
+    #build: ./microservices1/php/swoole
+    #build: ./microservices1/python/fastapi
+    #build: ./microservices1/python/flask
+    #build: ./microservices1/rust/actix
+    #build: ./microservices1/rust/hyper
+    ports:
+      - "8080:8080"
+    environment: # curl -i -XGET http://m2:3000/v1/avatar
+      - M1_PORT=8080
+      - M1_DOMAIN=0.0.0.0
+      - M1_PATH=/v1/user
+      - M2_PORT=3000
+      - M2_DOMAIN=http://m2
+      - M2_PATH=/v1/avatar
+    depends_on:
+      - m2
+  m2:
+    build: ./microservices2/go.quick
+    #build: ./microservices2/go.fiber
+    #build: ./microservices2/go.nethttp
+    #build: ./microservices2/rust.hype
+    ports:
+      - "3000:3000"

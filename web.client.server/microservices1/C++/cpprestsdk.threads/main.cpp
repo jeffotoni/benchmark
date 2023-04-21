@@ -22,7 +22,7 @@ pplx::task<void> handle_request(http_request request) {
         ++active_connections;
         lock.unlock();
 
-        http_client client(U("http://localhost:3000/v1/customer/get"));
+        http_client client(U("http://localhost:3000/v1/avatar"));
         return client.request(methods::GET)
             .then([](http_response response) {
                 return response.extract_json();
@@ -43,7 +43,7 @@ pplx::task<void> handle_request(http_request request) {
 
 int main() {
     uri_builder uri(U("http://localhost:8080"));
-    uri.append_path(U("/v1/client/get"));
+    uri.append_path(U("/v1/user"));
 
     http_listener listener(uri.to_uri());
     listener.support([](http_request request) {

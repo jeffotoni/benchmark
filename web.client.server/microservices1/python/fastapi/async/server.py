@@ -7,10 +7,10 @@ from datetime import datetime
 
 app = FastAPI()
 
-@app.get("/v1/client/get")
+@app.get("/v1/user")
 async def get_client():
     async with httpx.AsyncClient() as client:
-        response = await client.get("http://localhost:3000/v1/customer/get")
+        response = await client.get("http://localhost:3000/v1/avatar")
     customer_data = response.json()
 
     response_headers = {

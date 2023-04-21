@@ -4,9 +4,9 @@ use reqwest::Client;
 use serde_json::Value;
 use chrono::Utc;
 
-#[get("/v1/client/get")]
+#[get("/v1/user")]
 async fn get_client(client: web::Data<Client>) -> impl Responder {
-    let response = client.get("http://localhost:3000/v1/customer/get")
+    let response = client.get("http://localhost:3000/v1/avatar")
         .send()
         .await;
 

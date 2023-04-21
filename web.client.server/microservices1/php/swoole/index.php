@@ -14,9 +14,9 @@ $server->on('start', function (Server $server) {
 });
 
 $server->on('request', function (Request $request, Response $response) {
-    if ($request->server['request_method'] == 'GET' && $request->server['request_uri'] == '/v1/client/get') {
+    if ($request->server['request_method'] == 'GET' && $request->server['request_uri'] == '/v1/user') {
         $token = 'x3939393939x39393';
-        $url = 'http://127.0.0.1:3000/v1/customer/get';
+        $url = 'http://127.0.0.1:3000/v1/avatar';
 
         $data = fetchCustomerData($url, $token);
         $response->header('Content-Type', 'application/json');

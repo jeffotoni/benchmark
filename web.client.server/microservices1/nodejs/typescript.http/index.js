@@ -49,7 +49,7 @@ var server = http.createServer(function (req, res) { return __awaiter(void 0, vo
                 res.end(JSON.stringify({ name: "pong" }));
                 return [3 /*break*/, 7];
             case 1:
-                if (!(req.url === "/v1/client/get" && req.method === "GET")) return [3 /*break*/, 6];
+                if (!(req.url === "/v1/user" && req.method === "GET")) return [3 /*break*/, 6];
                 res.setHeader("Content-Type", "application/json");
                 _b.label = 2;
             case 2:
@@ -58,7 +58,7 @@ var server = http.createServer(function (req, res) { return __awaiter(void 0, vo
                     method: "GET",
                     host: "127.0.0.1",
                     port: 3000,
-                    path: "/v1/customer/get",
+                    path: "/v1/avatar",
                     headers: {
                         "Content-Type": "application/json; charset=UTF-8",
                         Accept: "application/json",

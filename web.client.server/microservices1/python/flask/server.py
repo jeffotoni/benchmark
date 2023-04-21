@@ -6,9 +6,9 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-@app.route('/v1/client/get', methods=['GET'])
+@app.route('/v1/user', methods=['GET'])
 def get_client():
-    response = requests.get('http://localhost:3000/v1/customer/get')
+    response = requests.get('http://localhost:3000/v1/avatar')
     customer_data = response.json()
     
     response_headers = {
