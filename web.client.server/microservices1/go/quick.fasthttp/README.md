@@ -5,7 +5,8 @@ fastHttp só para vermos a dimensão e poder desta lib.
 
 ### 90 segundos
 ```bash
-k6 run -d 90s -u 100 k6/script-get.js
+k6 run -d 90s -u 100 k6/microservice1-get.js
+
           /\      |‾‾| /‾‾/   /‾‾/   
      /\  /  \     |  |/  /   /  /    
     /  \/    \    |     (   /   ‾‾\  
@@ -13,37 +14,52 @@ k6 run -d 90s -u 100 k6/script-get.js
   / __________ \  |__| \__\ \_____/ .io
 
   execution: local
-     script: k6/script-get.js
+     script: k6/microservice1-get.js
      output: -
 
   scenarios: (100.00%) 1 scenario, 100 max VUs, 2m0s max duration (incl. graceful stop):
            * default: 100 looping VUs for 1m30s (gracefulStop: 30s)
 
-running (1m30.0s), 000/100 VUs, 4257800 complete and 0 interrupted iterations
+
+running (1m30.0s), 000/100 VUs, 4441067 complete and 0 interrupted iterations
 default ✓ [======================================] 100 VUs  1m30s
 
-     data_received..................: 16 GB   178 MB/s
-     data_sent......................: 532 MB  5.9 MB/s
-     http_req_blocked...............: avg=2.64µs  min=641ns    med=1.43µs  max=28.08ms p(90)=1.89µs  p(95)=2.23µs 
-     http_req_connecting............: avg=125ns   min=0s       med=0s      max=27.2ms  p(90)=0s      p(95)=0s     
-     http_req_duration..............: avg=2.03ms  min=109.71µs med=1.72ms  max=49.52ms p(90)=3.85ms  p(95)=4.81ms 
-       { expected_response:true }...: avg=2.03ms  min=109.71µs med=1.72ms  max=49.52ms p(90)=3.85ms  p(95)=4.81ms 
-     http_req_failed................: 0.00%   ✓ 0            ✗ 4257800
-     http_req_receiving.............: avg=36.94µs min=6.44µs   med=18.31µs max=20.27ms p(90)=25.48µs p(95)=33.93µs
-     http_req_sending...............: avg=12.84µs min=3.26µs   med=7.07µs  max=26.59ms p(90)=8.96µs  p(95)=12.35µs
-     http_req_tls_handshaking.......: avg=0s      min=0s       med=0s      max=0s      p(90)=0s      p(95)=0s     
-     http_req_waiting...............: avg=1.98ms  min=86.73µs  med=1.68ms  max=30.27ms p(90)=3.78ms  p(95)=4.73ms 
-     http_reqs......................: 4257800 47307.889286/s
-     iteration_duration.............: avg=2.1ms   min=150.69µs med=1.77ms  max=50.06ms p(90)=3.95ms  p(95)=4.93ms 
-     iterations.....................: 4257800 47307.889286/s
+     data_received..................: 17 GB   186 MB/s
+     data_sent......................: 529 MB  5.9 MB/s
+     http_req_blocked...............: avg=2.7µs   min=670ns    med=1.45µs  max=101.23ms p(90)=1.9µs   p(95)=2.25µs 
+     http_req_connecting............: avg=103ns   min=0s       med=0s      max=33.78ms  p(90)=0s      p(95)=0s     
+     http_req_duration..............: avg=1.94ms  min=109.01µs med=1.65ms  max=109.46ms p(90)=3.6ms   p(95)=4.47ms 
+       { expected_response:true }...: avg=1.94ms  min=109.01µs med=1.65ms  max=109.46ms p(90)=3.6ms   p(95)=4.47ms 
+     http_req_failed................: 0.00%   ✓ 0            ✗ 4441067
+     http_req_receiving.............: avg=38.93µs min=7.31µs   med=18.52µs max=103.67ms p(90)=25.72µs p(95)=33.13µs
+     http_req_sending...............: avg=12.62µs min=3.38µs   med=7.1µs   max=101.02ms p(90)=9.02µs  p(95)=12.66µs
+     http_req_tls_handshaking.......: avg=0s      min=0s       med=0s      max=0s       p(90)=0s      p(95)=0s     
+     http_req_waiting...............: avg=1.89ms  min=80.66µs  med=1.61ms  max=107.69ms p(90)=3.53ms  p(95)=4.38ms 
+     http_reqs......................: 4441067 49342.575251/s
+     iteration_duration.............: avg=2.01ms  min=140.6µs  med=1.71ms  max=109.51ms p(90)=3.69ms  p(95)=4.58ms 
+     iterations.....................: 4441067 49342.575251/s
      vus............................: 100     min=100        max=100  
-     vus_max........................: 100     min=100        max=100 
+     vus_max........................: 100     min=100        max=100  
+
+```
+
+#### wrk
+```bash
+http://localhost:8080/v1/user
+  12 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.30ms    1.09ms  23.32ms   78.85%
+    Req/Sec     6.97k   732.31    16.82k    75.68%
+  7490630 requests in 1.50m, 26.29GB read
+Requests/sec:  83167.71
+Transfer/sec:    298.94MB
+
 ```
 
 #### 15 segundos
 
 ```bash
-k6 run -d 15s -u 100 k6/script-get.js
+k6 run -d 15s -u 100 k6/microservice1-get.js
 
           /\      |‾‾| /‾‾/   /‾‾/   
      /\  /  \     |  |/  /   /  /    
@@ -52,31 +68,45 @@ k6 run -d 15s -u 100 k6/script-get.js
   / __________ \  |__| \__\ \_____/ .io
 
   execution: local
-     script: k6/script-get.js
+     script: k6/microservice1-get.js
      output: -
 
   scenarios: (100.00%) 1 scenario, 100 max VUs, 45s max duration (incl. graceful stop):
            * default: 100 looping VUs for 15s (gracefulStop: 30s)
 
 
-running (15.0s), 000/100 VUs, 546191 complete and 0 interrupted iterations
+running (15.0s), 000/100 VUs, 711678 complete and 0 interrupted iterations
 default ✓ [======================================] 100 VUs  15s
 
-     data_received..................: 2.1 GB 137 MB/s
-     data_sent......................: 68 MB  4.5 MB/s
-     http_req_blocked...............: avg=3.18µs  min=722ns    med=1.48µs  max=32.32ms p(90)=2.09µs  p(95)=2.48µs 
-     http_req_connecting............: avg=713ns   min=0s       med=0s      max=32.24ms p(90)=0s      p(95)=0s     
-     http_req_duration..............: avg=2.66ms  min=124.23µs med=2.3ms   max=68.22ms p(90)=4.9ms   p(95)=6.07ms 
-       { expected_response:true }...: avg=2.66ms  min=124.23µs med=2.3ms   max=68.22ms p(90)=4.9ms   p(95)=6.07ms 
-     http_req_failed................: 0.00%  ✓ 0            ✗ 546191
-     http_req_receiving.............: avg=40.05µs min=8.5µs    med=19.33µs max=22.73ms p(90)=29.44µs p(95)=56.09µs
-     http_req_sending...............: avg=13.56µs min=3.53µs   med=7.17µs  max=16.63ms p(90)=10µs    p(95)=14.34µs
-     http_req_tls_handshaking.......: avg=0s      min=0s       med=0s      max=0s      p(90)=0s      p(95)=0s     
-     http_req_waiting...............: avg=2.61ms  min=99.77µs  med=2.25ms  max=67.82ms p(90)=4.83ms  p(95)=5.97ms 
-     http_reqs......................: 546191 36393.423126/s
-     iteration_duration.............: avg=2.73ms  min=157.01µs med=2.36ms  max=69ms    p(90)=4.99ms  p(95)=6.17ms 
-     iterations.....................: 546191 36393.423126/s
+     data_received..................: 2.7 GB 179 MB/s
+     data_sent......................: 85 MB  5.6 MB/s
+     http_req_blocked...............: avg=3.63µs  min=702ns    med=1.45µs  max=46.73ms  p(90)=2.06µs  p(95)=2.47µs 
+     http_req_connecting............: avg=817ns   min=0s       med=0s      max=46.63ms  p(90)=0s      p(95)=0s     
+     http_req_duration..............: avg=2.01ms  min=103.74µs med=1.65ms  max=91.42ms  p(90)=3.86ms  p(95)=4.93ms 
+       { expected_response:true }...: avg=2.01ms  min=103.74µs med=1.65ms  max=91.42ms  p(90)=3.86ms  p(95)=4.93ms 
+     http_req_failed................: 0.00%  ✓ 0            ✗ 711678
+     http_req_receiving.............: avg=43.99µs min=8.34µs   med=18.31µs max=20.81ms  p(90)=28.53µs p(95)=88.2µs 
+     http_req_sending...............: avg=14.71µs min=3.26µs   med=6.9µs   max=47ms     p(90)=11.68µs p(95)=14.79µs
+     http_req_tls_handshaking.......: avg=0s      min=0s       med=0s      max=0s       p(90)=0s      p(95)=0s     
+     http_req_waiting...............: avg=1.95ms  min=82.65µs  med=1.6ms   max=91.25ms  p(90)=3.77ms  p(95)=4.8ms  
+     http_reqs......................: 711678 47439.242982/s
+     iteration_duration.............: avg=2.09ms  min=132.21µs med=1.71ms  max=108.61ms p(90)=3.97ms  p(95)=5.07ms 
+     iterations.....................: 711678 47439.242982/s
      vus............................: 100    min=100        max=100 
      vus_max........................: 100    min=100        max=100 
 
+
+```
+
+#### wrk
+```bash
+wrk -t12 -c100 -d15s http://localhost:8080/v1/user  
+Running 15s test @ http://localhost:8080/v1/user
+  12 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.28ms    1.13ms  27.93ms   83.13%
+    Req/Sec     7.12k     0.94k   26.25k    90.09%
+  1280911 requests in 15.10s, 4.50GB read
+Requests/sec:  84828.26
+Transfer/sec:    304.91MB
 ```
