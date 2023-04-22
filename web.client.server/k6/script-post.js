@@ -22,7 +22,7 @@ export const options = {
 export default function() {
     // console.log("versao http2");
     // sleep(1);
-    let res = http.post(`http://localhost:8080/v1/client/post`, {
+    let res = http.post(`http://localhost:8080/v1/user`, {
         headers: headers,
         body: JSON.stringify(jsonPost),
         //http2: true,

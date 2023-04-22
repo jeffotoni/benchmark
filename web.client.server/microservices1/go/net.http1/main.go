@@ -22,18 +22,15 @@ var client = &http.Client{Transport: &http.Transport{
 
 func init() {
 	if len(Domain) == 0 {
-		Domain = "http://127.0.0.1:3000/v1/customer"
+		Domain = "http://127.0.0.1:3000/v1/avatar"
 	}
 }
 
 func main() {
 
 	http.HandleFunc("/v1/user", Get)
-	http.HandleFunc("/v1/client/post", Post)
-
 	log.Println("Run Server port 0.0.0.0:8080")
 	log.Println("[GET]  /v1/user")
-	log.Println("[POST] /v1/client/post")
 
 	server := &http.Server{
 		Addr: "0.0.0.0:8080",
@@ -43,7 +40,7 @@ func main() {
 
 func Get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Engine", "net/http Go")
+	w.Header().Set("Engine", "net/http-Go")
 	w.Header().Set("Location", "/v1/user")
 	w.Header().Set("Date", time.Now().Format("2006-01-02T15:04:05.000Z"))
 
@@ -57,34 +54,6 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	length := strconv.Itoa(len(body))
 	w.Header().Set("Content-Length", length)
 	w.WriteHeader(code)
-	w.Write(body)
-	return
-}
-
-func Post(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Engine", "Go")
-	w.Header().Set("Location", "/v1/client/post")
-	w.Header().Set("Date", time.Now().Format("2006-01-02T15:04:05.000Z"))
-
-	body, err := io.ReadAll(r.Body)
-	if err != nil {
-		log.Println("Error Server ReadAll:", err)
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(``))
-		return
-	}
-
-	body, code, err := AdapterConnect("post", body)
-	if err != nil {
-		log.Println("Error Server connect:", err, " code:", code)
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(``))
-		return
-	}
-	length := strconv.Itoa(len(body))
-	w.Header().Set("Content-Length", length)
-	w.WriteHeader(http.StatusOK)
 	w.Write(body)
 	return
 }

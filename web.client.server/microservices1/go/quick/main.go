@@ -25,19 +25,15 @@ var client = &http.Client{Transport: &http.Transport{
 
 func init() {
 	if len(Domain) == 0 {
-		Domain = "http://127.0.0.1:3000/v1/customer"
+		Domain = "http://127.0.0.1:3000/v1/avatar"
 	}
 }
 
 func main() {
 	q := quick.New()
-
 	q.Get("/v1/user", Get)
-	q.Post("/v1/client/post", Post)
-
 	log.Println("Run Server port 0.0.0.0:8080")
 	log.Println("[GET]  /v1/user")
-	log.Println("[POST] /v1/client/post")
 	q.Listen("0.0.0.0:8080")
 }
 
@@ -55,23 +51,6 @@ func Get(c *quick.Ctx) (err error) {
 	length := strconv.Itoa(len(body))
 	c.Set("Content-Length", length)
 	return c.Status(code).Byte(body)
-}
-
-func Post(c *quick.Ctx) (err error) {
-	c.Set("Content-Type", "application/json")
-	c.Set("Engine", "Go")
-	c.Set("Location", "/v1/client/post")
-	c.Set("Date", time.Now().Format("2006-01-02T15:04:05.000Z"))
-
-	body := c.Body()
-	body, code, err := AdapterConnect(Domain, "post", body)
-	if err != nil {
-		log.Println("Error Server connect:", err, " code:", code)
-		return c.Status(quick.StatusInternalServerError).SendString("")
-	}
-	length := strconv.Itoa(len(body))
-	c.Set("Content-Length", length)
-	return c.Status(quick.StatusOK).Byte(body)
 }
 
 func Concat(strs ...string) string {

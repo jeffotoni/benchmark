@@ -5,7 +5,6 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -25,7 +24,7 @@ var client = &http.Client{Transport: &http.Transport{
 
 func init() {
 	if len(Domain) == 0 {
-		Domain = "http://127.0.0.1:3000/v1/customer"
+		Domain = "http://127.0.0.1:3000/v1/avatar"
 	}
 }
 
@@ -44,11 +43,8 @@ func main() {
 	// e.Use(middleware.Recover())
 
 	e.GET("/v1/user", Get)
-	e.POST("/v1/client/post", Post)
-
 	log.Println("Run Server port 0.0.0.0:8080")
 	log.Println("[GET]  /v1/user")
-	log.Println("[POST] /v1/client/post")
 	e.Start("0.0.0.0:8080")
 }
 
@@ -66,32 +62,6 @@ func Get(c echo.Context) (err error) {
 	length := strconv.Itoa(len(body))
 	c.Response().Header().Set("Content-Length", length)
 	return c.String(code, string(body))
-}
-
-func Post(c echo.Context) (err error) {
-	c.Response().Header().Set("Content-Type", "application/json")
-	c.Response().Header().Set("Engine", "Go")
-	c.Response().Header().Set("Location", "/v1/client/post")
-	c.Response().Header().Set("Date", time.Now().Format("2006-01-02T15:04:05.000Z"))
-
-	payload, err := ioutil.ReadAll(c.Request().Body)
-	if err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]string{
-			"message": "Não foi possível ler o payload",
-		})
-	}
-
-	start := time.Now()
-	body, code, err := AdapterConnect("post", payload)
-	if err != nil {
-		log.Println("Error Server connect:", err, " code:", code)
-		return c.String(http.StatusInternalServerError, "")
-	}
-	end := time.Now().Sub(start)
-	log.Println("Service Adapter [POST] timeTotal:", end.String())
-	length := strconv.Itoa(len(body))
-	c.Response().Header().Set("Content-Length", length)
-	return c.String(http.StatusOK, string(body))
 }
 
 func Concat(strs ...string) string {

@@ -16,7 +16,7 @@ async fn get_client(client: web::Data<Client>) -> impl Responder {
                 HttpResponse::Ok()
                     .append_header(("Content-Type", "application/json"))
                     .append_header(("Engine", "Rust"))
-                    .append_header(("Location", "/v1/client/post"))
+                    .append_header(("Location", "/v1/user"))
                     .append_header(("Date", Utc::now().format("%Y-%m-%dT%H:%M:%S.%fZ").to_string()))
                     .json(json)
             } else {

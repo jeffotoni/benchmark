@@ -37,7 +37,15 @@ func init() {
 }
 
 func main() {
-	q := quick.New()
+	//q := quick.New()
+	q := quick.New(quick.Config{
+                BodyLimit:      2 * 1024 * 1024,
+                MaxBodySize:    2 * 1024 * 1024,
+                MaxHeaderBytes: 1 * 1024 * 1024,
+                RouteCapacity:  1000,
+                MoreRequests:   269, // valor de equilibrio
+        })
+
 	q.Get(M2_PATH, Get)
 	log.Println("Run Server ", URLM2)
 	log.Println("[GET] ", M2_PATH)

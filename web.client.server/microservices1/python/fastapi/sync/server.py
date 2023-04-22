@@ -15,7 +15,7 @@ async def get_client():
     response_headers = {
         "Content-Type": "application/json",
         "Engine": "Python",
-        "Location": "/v1/client/post",
+        "Location": "/v1/user",
         "Date": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
     }
 

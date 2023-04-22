@@ -21,7 +21,7 @@ var fclient = &fasthttp.Client{
 
 func init() {
 	if len(Domain) == 0 {
-		Domain = "http://127.0.0.1:3000/v1/customer"
+		Domain = "http://127.0.0.1:3000/v1/avatar"
 	}
 }
 func main() {

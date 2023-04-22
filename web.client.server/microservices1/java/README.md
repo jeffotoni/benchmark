@@ -27,12 +27,12 @@ No diretório mock.server teremos um server feito em Go que irá ser responsáve
 ```bash
 $ go run main.go
 Run Server Mock 0.0.0.0:3000
-[GET] /v1/customer
+[GET] /v1/avatar
 
 ```
 
 ```bash
-$ curl -i -XGET http://localhost:3000/v1/customer
+$ curl -i -XGET http://localhost:3000/v1/avatar
 HTTP/1.1 201 
 Location: /v1/client
 Engine: Spring Boot
@@ -253,7 +253,7 @@ reating gserver     ... done
 Creating gmockserver ... done
 Attaching to gmockserver, gserver
 gmockserver    | 2022/12/03 18:32:43 Run Server Mock 0.0.0.0:3000
-gmockserver    | 2022/12/03 18:32:43 [GET] /v1/customer
+gmockserver    | 2022/12/03 18:32:43 [GET] /v1/avatar
 gserver        | 2022/12/03 18:32:43 Run Server port 0.0.0.0:8080
 gserver        | 2022/12/03 18:32:43 [GET] /v1/client
 
@@ -281,7 +281,7 @@ jserver is up-to-date
 Starting gmockserver ... done
 Attaching to jserver, gmockserver
 gmockserver    | 2022/12/05 22:40:01 Run Server Mock 0.0.0.0:3000
-gmockserver    | 2022/12/05 22:40:01 [GET] /v1/customer
+gmockserver    | 2022/12/05 22:40:01 [GET] /v1/avatar
 jserver        | 
 jserver        |   .   ____          _            __ _ _
 jserver        |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \

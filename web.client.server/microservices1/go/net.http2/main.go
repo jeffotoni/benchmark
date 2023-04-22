@@ -32,12 +32,9 @@ var (
 )
 
 func main() {
-
 	http.HandleFunc("/v1/user", Get)
-	http.HandleFunc("/v1/client/post", Post)
 	log.Println("Run Server port 0.0.0.0:8080")
 	log.Println("[GET]  /v1/user")
-	log.Println("[POST] /v1/client/post")
 
 	server := &http.Server{
 		//Addr: "0.0.0.0:443",
@@ -51,7 +48,7 @@ func main() {
 
 func Get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Engine", "Go")
+	w.Header().Set("Engine", "Go/nethttp")
 	w.Header().Set("Location", "/v1/user")
 	w.Header().Set("Date", time.Now().Format("2006-01-02T15:04:05.000Z"))
 
@@ -69,49 +66,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func Post(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Engine", "Go")
-	w.Header().Set("Location", "/v1/client/post")
-	w.Header().Set("Date", time.Now().Format("2006-01-02T15:04:05.000Z"))
-
-	body, err := io.ReadAll(r.Body)
-	if err != nil {
-		log.Println("Error Server ReadAll:", err)
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(``))
-		return
-	}
-
-	// println("b:", string(body))
-	start := time.Now()
-	body, code, err := AdapterConnect("post", body)
-	if err != nil {
-		log.Println("Error Server connect:", err, " code:", code)
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(``))
-		return
-	}
-	end := time.Now().Sub(start)
-	log.Println("Service Adapter [POST] timeTotal:", end.String())
-	length := strconv.Itoa(len(body))
-	w.Header().Set("Content-Length", length)
-	w.WriteHeader(http.StatusOK)
-	w.Write(body)
-	return
-}
-
 func AdapterConnect(method string, bodyPost []byte) (body []byte, code int, err error) {
-
-	// var client2 = &http.Client{
-	// 	Transport: &http.Transport{
-	// 		DisableKeepAlives: true,
-	// 		MaxIdleConns:      2,
-	// 		// MaxIdleConnsPerHost: 10,
-	// 		// MaxConnsPerHost:     10,
-	// 		// IdleConnTimeout: time.Duration(time.Millisecond * 10),
-	// 	}}
-
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(5)*time.Second)
 	defer cancel()
 
@@ -121,11 +76,10 @@ func AdapterConnect(method string, bodyPost []byte) (body []byte, code int, err 
 
 	// send POST
 
-	var Url string = Domain + "/v1/customer"
+	var Url string = Domain + "/v1/avatar"
 	var req = &http.Request{}
 
 	// http2.ConfigureTransport(client.Transport)
-
 	if strings.ToLower(method) == "get" {
 		Url = Url + "/get"
 		req, err = http.NewRequestWithContext(ctx, "GET", Url, nil)

@@ -5,7 +5,6 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -55,8 +54,8 @@ func main() {
 
 	r.GET("/v1/user", func(c *gin.Context) {
 		c.Header("Content-Type", "application/json")
-		c.Header("Engine", "Go")
-		c.Header("Location", "/v1/client/post")
+		c.Header("Engine", "Go/Gin")
+		c.Header("Location", "/v1/user")
 		c.Header("Date", time.Now().Format("2006-01-02T15:04:05.000Z"))
 
 		body, code, err := AdapterConnect("get", nil)
@@ -70,36 +69,6 @@ func main() {
 		c.String(http.StatusOK, string(body))
 	})
 
-	r.POST("/v1/client/post", func(c *gin.Context) {
-		c.Header("Content-Type", "application/json")
-		c.Header("Engine", "Go")
-		c.Header("Location", "/v1/client/post")
-		c.Header("Date", time.Now().Format("2006-01-02T15:04:05.000Z"))
-
-		rawData := c.Request.Body
-		defer rawData.Close()
-
-		body, err := ioutil.ReadAll(rawData)
-		if err != nil {
-			c.String(http.StatusBadRequest, "Error reading request body: "+err.Error())
-			return
-		}
-
-		// start := time.Now()
-		body, code, err := AdapterConnect("post", body)
-		if err != nil {
-			log.Println("Error Server connect:", err, " code:", code)
-			c.String(http.StatusBadRequest, "Error reading request body: "+err.Error())
-			return
-		}
-		// end := time.Now().Sub(start)
-		// log.Println("Service Adapter [POST] timeTotal:", end.String())
-		length := strconv.Itoa(len(body))
-		c.Header("Content-Length", length)
-		c.String(http.StatusOK, string(body))
-	})
-
-	// log.Fatal(r.RunTLS("0.0.0.0:443", "server.pem", "server-key.pem"))
 	log.Fatal(r.Run())
 }
 
@@ -108,7 +77,7 @@ func AdapterConnect(method string, bodyPost []byte) (body []byte, code int, err 
 	defer cancel()
 
 	// send POST
-	var Url string = Domain + "/v1/customer"
+	var Url string = Domain + "/v1/avatar"
 	var req = &http.Request{}
 
 	if strings.ToLower(method) == "get" {
