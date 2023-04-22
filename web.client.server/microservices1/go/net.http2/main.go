@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"context"
 	"fmt"
 	"io"
@@ -9,7 +8,6 @@ import (
 	"net/http"
 	"os"
 	"strconv"
-	"strings"
 	"time"
 	// "golang.org/x/net/http2"
 )
@@ -67,40 +65,20 @@ func Get(w http.ResponseWriter, r *http.Request) {
 }
 
 func AdapterConnect(method string, bodyPost []byte) (body []byte, code int, err error) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(5)*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(1)*time.Second)
 	defer cancel()
 
-	if len(Domain) == 0 {
-		Domain = "http://127.0.0.1:3000"
-	}
-
 	// send POST
-
-	var Url string = Domain + "/v1/avatar"
+	var Url string = Domain
 	var req = &http.Request{}
 
-	// http2.ConfigureTransport(client.Transport)
-	if strings.ToLower(method) == "get" {
-		Url = Url + "/get"
-		req, err = http.NewRequestWithContext(ctx, "GET", Url, nil)
-		if err != nil {
-			fmt.Printf("Error %s", err)
-			return
-		}
-	} else if strings.ToLower(method) == "post" {
-		bodysend := bytes.NewBuffer(bodyPost)
-		Url = Url + "/post"
-		req, err = http.NewRequestWithContext(ctx, "POST", Url, bodysend)
-		if err != nil {
-			fmt.Printf("Error %s", err)
-			return
-		}
+	req, err = http.NewRequestWithContext(ctx, "GET", Url, nil)
+	if err != nil {
+		fmt.Printf("Error %s", err)
+		return
 	}
-	//println("url:", Url)
-	//req.ContentLength = int64(-1)
-	//req.TransferEncoding = []string{"identity"}
-	req.Header.Set("Content-Type", "application/json")
 
+	req.Header.Set("Content-Type", "application/json")
 	resp, err := client.Do(req)
 	if err != nil {
 		fmt.Printf("Error %s", err)
@@ -114,6 +92,5 @@ func AdapterConnect(method string, bodyPost []byte) (body []byte, code int, err 
 		fmt.Printf("Error %s", err)
 		return
 	}
-
 	return
 }

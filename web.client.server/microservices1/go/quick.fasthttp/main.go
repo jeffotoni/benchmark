@@ -74,7 +74,7 @@ func Get(c *quick.Ctx) (err error) {
 	c.Set("Location", "/v1/user")
 	c.Set("Date", time.Now().Format("2006-01-02T15:04:05.000Z"))
 
-	println(URLM2)
+	//println(URLM2)
 	body, code, err := AdapterConnectFast(URLM2, "GET", nil)
 	if err != nil {
 		log.Println("Error Server connect:", err, " code:", code)
@@ -90,10 +90,6 @@ func AdapterConnectFast(url, method string, bodyPost []byte) (body []byte, code 
 	resp := fasthttp.AcquireResponse()
 	defer fasthttp.ReleaseRequest(req)
 	defer fasthttp.ReleaseResponse(resp)
-
-	// if strings.ToUpper(method) == "GET" {
-	// 	url = Concat(url, "/get")
-	// }
 
 	req.SetRequestURI(url)
 	req.Header.SetMethod(method)

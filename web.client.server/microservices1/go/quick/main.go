@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"context"
 	"fmt"
 	"io"
@@ -68,21 +67,10 @@ func AdapterConnect(Url, method string, bodyPost []byte) (body []byte, code int,
 	//var Url string = Domain
 	var req = &http.Request{}
 
-	if strings.ToUpper(method) == "GET" {
-		Url = Concat(Url, "/get")
-		req, err = http.NewRequestWithContext(ctx, "GET", Url, nil)
-		if err != nil {
-			fmt.Printf("Error %s", err)
-			return
-		}
-	} else if strings.ToUpper(method) == "POST" {
-		bodysend := bytes.NewBuffer(bodyPost)
-		Url = Concat(Url, "/post")
-		req, err = http.NewRequestWithContext(ctx, "POST", Url, bodysend)
-		if err != nil {
-			fmt.Printf("Error %s", err)
-			return
-		}
+	req, err = http.NewRequestWithContext(ctx, "GET", Url, nil)
+	if err != nil {
+		fmt.Printf("Error %s", err)
+		return
 	}
 
 	req.Header.Set("Content-Type", "application/json")

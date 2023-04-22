@@ -11,10 +11,9 @@ app = FastAPI()
 async def get_client():
     response = requests.get("http://localhost:3000/v1/avatar")
     customer_data = response.json()
-
     response_headers = {
         "Content-Type": "application/json",
-        "Engine": "Python",
+        "Engine": "Python/fastapi",
         "Location": "/v1/user",
         "Date": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
     }

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"context"
 	"fmt"
 	"io"
@@ -9,7 +8,6 @@ import (
 	"net/http"
 	"os"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -73,28 +71,17 @@ func main() {
 }
 
 func AdapterConnect(method string, bodyPost []byte) (body []byte, code int, err error) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(5)*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(1)*time.Second)
 	defer cancel()
 
 	// send POST
-	var Url string = Domain + "/v1/avatar"
+	var Url string = Domain
 	var req = &http.Request{}
 
-	if strings.ToLower(method) == "get" {
-		Url = Url + "/get"
-		req, err = http.NewRequestWithContext(ctx, "GET", Url, nil)
-		if err != nil {
-			fmt.Printf("Error %s", err)
-			return
-		}
-	} else if strings.ToLower(method) == "post" {
-		bodysend := bytes.NewBuffer(bodyPost)
-		Url = Url + "/post"
-		req, err = http.NewRequestWithContext(ctx, "POST", Url, bodysend)
-		if err != nil {
-			fmt.Printf("Error %s", err)
-			return
-		}
+	req, err = http.NewRequestWithContext(ctx, "GET", Url, nil)
+	if err != nil {
+		fmt.Printf("Error %s", err)
+		return
 	}
 
 	req.Header.Set("Content-Type", "application/json")

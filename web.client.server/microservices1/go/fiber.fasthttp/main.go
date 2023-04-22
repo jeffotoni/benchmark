@@ -54,9 +54,6 @@ func AdapterConnectFast(url, method string, bodyPost []byte) (body []byte, code 
 	defer fasthttp.ReleaseRequest(req)
 	defer fasthttp.ReleaseResponse(resp)
 
-	if strings.ToUpper(method) == "GET" {
-		url = Concat(url, "/get")
-	}
 	req.SetRequestURI(url)
 	req.Header.SetMethod(method)
 
