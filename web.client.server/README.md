@@ -4,6 +4,7 @@ Este cenário é um client server, onde criamos a comunicação entre dois sevi�
 
 A comunicação entre estes dois serviços conseguiremos observar o tempo gasto pelas requisições e diversas outras variáveis que o k6 irá disponibilizar.
 
+![diagrama](./diagramavsgo.png)
 
 ##### Docker-Compose
 
