@@ -92,8 +92,8 @@ default ✓ [======================================] 100 VUs  15s
      vus............................: 100     min=100        max=100  
      vus_max........................: 100     min=100        max=100
 
-CPU:  21,18
-MEMORY: 14,9
+CPU:  19,59
+MEMORY: 25,9
 k6 run -d 90s -u 100 k6/microservice2-get.js
 
           /\      |‾‾| /‾‾/   /‾‾/   
@@ -110,23 +110,23 @@ k6 run -d 90s -u 100 k6/microservice2-get.js
            * default: 100 looping VUs for 1m30s (gracefulStop: 30s)
 
 
-running (1m30.0s), 000/100 VUs, 8593139 complete and 0 interrupted iterations
+running (1m30.0s), 000/100 VUs, 8702571 complete and 0 interrupted iterations
 default ✓ [======================================] 100 VUs  1m30s
 
-     data_received..................: 33 GB   368 MB/s
-     data_sent......................: 1.0 GB  12 MB/s
-     http_req_blocked...............: avg=1.88µs   min=629ns   med=1.35µs   max=154.07ms p(90)=1.62µs  p(95)=1.95µs 
-     http_req_connecting............: avg=47ns     min=0s      med=0s       max=34.88ms  p(90)=0s      p(95)=0s     
-     http_req_duration..............: avg=990.66µs min=43.36µs med=826.37µs max=156.7ms  p(90)=1.76ms  p(95)=2.2ms  
-       { expected_response:true }...: avg=990.66µs min=43.36µs med=826.37µs max=156.7ms  p(90)=1.76ms  p(95)=2.2ms  
-     http_req_failed................: 0.00%   ✓ 0            ✗ 8593139
-     http_req_receiving.............: avg=26.12µs  min=6.86µs  med=16.43µs  max=154.89ms p(90)=20.17µs p(95)=23.77µs
-     http_req_sending...............: avg=8.66µs   min=3.13µs  med=6.64µs   max=151.7ms  p(90)=7.87µs  p(95)=10.67µs
-     http_req_tls_handshaking.......: avg=0s       min=0s      med=0s       max=0s       p(90)=0s      p(95)=0s     
-     http_req_waiting...............: avg=955.86µs min=23.85µs med=800.24µs max=120.12ms p(90)=1.73ms  p(95)=2.16ms 
-     http_reqs......................: 8593139 95478.254805/s
-     iteration_duration.............: avg=1.04ms   min=72.25µs med=866.34µs max=156.74ms p(90)=1.82ms  p(95)=2.27ms 
-     iterations.....................: 8593139 95478.254805/s
+     data_received..................: 34 GB   373 MB/s
+     data_sent......................: 1.1 GB  12 MB/s
+     http_req_blocked...............: avg=1.71µs   min=641ns   med=1.35µs   max=30.61ms p(90)=1.61µs  p(95)=1.91µs 
+     http_req_connecting............: avg=30ns     min=0s      med=0s       max=28.46ms p(90)=0s      p(95)=0s     
+     http_req_duration..............: avg=981.95µs min=44.82µs med=828.92µs max=41.33ms p(90)=1.75ms  p(95)=2.19ms 
+       { expected_response:true }...: avg=981.95µs min=44.82µs med=828.92µs max=41.33ms p(90)=1.75ms  p(95)=2.19ms 
+     http_req_failed................: 0.00%   ✓ 0            ✗ 8702571
+     http_req_receiving.............: avg=23.31µs  min=6.95µs  med=16.45µs  max=23.87ms p(90)=20.01µs p(95)=23.7µs 
+     http_req_sending...............: avg=8.48µs   min=3.04µs  med=6.6µs    max=29.86ms p(90)=7.74µs  p(95)=10.45µs
+     http_req_tls_handshaking.......: avg=0s       min=0s      med=0s       max=0s      p(90)=0s      p(95)=0s     
+     http_req_waiting...............: avg=950.15µs min=25.61µs med=802.92µs max=41.22ms p(90)=1.71ms  p(95)=2.14ms 
+     http_reqs......................: 8702571 96693.759082/s
+     iteration_duration.............: avg=1.02ms   min=67.77µs med=868.53µs max=41.43ms p(90)=1.8ms   p(95)=2.25ms 
+     iterations.....................: 8702571 96693.759082/s
      vus............................: 100     min=100        max=100  
      vus_max........................: 100     min=100        max=100  
 
