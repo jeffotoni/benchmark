@@ -10,7 +10,7 @@ use std::time::Duration;
 use hyper::header::HeaderValue;
 use std::env;
 
-async fn get_client(client: Arc<Client>, _req: Request<Body>, m1path: String, m2url: String) -> Result<Response<Body>, Infallible> {
+async fn getclient(client: Arc<Client>, _req: Request<Body>, m1path: String, m2url: String) -> Result<Response<Body>, Infallible> {
     if _req.uri().path() != m1path {
         let not_found = Response::builder()
             .status(hyper::StatusCode::NOT_FOUND)
@@ -23,16 +23,16 @@ async fn get_client(client: Arc<Client>, _req: Request<Body>, m1path: String, m2
         .send()
         .await;
 
-    let json = match response {
-        Ok(res) => res.text().await.unwrap(),
-        Err(_) => "Error".to_string(),
+    let body = match response {
+        Ok(res) => res.bytes().await.unwrap(),
+        Err(_) => Vec::new().into(),
     };
 
-    let mut response = Response::new(Body::from(json));
+    let mut response = Response::new(Body::from(body));
     *response.status_mut() = hyper::StatusCode::OK;
 
     response.headers_mut().insert(hyper::header::CONTENT_TYPE, hyper::header::HeaderValue::from_static("application/json"));
-    response.headers_mut().insert("Engine", HeaderValue::from_static("Rust/Hype"));    
+    response.headers_mut().insert("Engine", HeaderValue::from_static("Rust/HypeV2"));    
     response.headers_mut().insert(hyper::header::LOCATION, hyper::header::HeaderValue::from_static("/v1/user"));
     response.headers_mut().insert(hyper::header::DATE, hyper::header::HeaderValue::from_str(&chrono::Utc::now().to_rfc3339()).unwrap());
 
@@ -75,7 +75,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync +'static>>
             let m2url: String = format!("{}{}{}{}", domain,":",port, path);
             //println!("{}",m2url);
 
-           Ok::<_, Infallible>(service_fn(move |req| get_client(client.clone(), req, m1path.clone(), m2url.clone())))
+           Ok::<_, Infallible>(service_fn(move |req| getclient(client.clone(), req, m1path.clone(), m2url.clone())))
         }
     });
 

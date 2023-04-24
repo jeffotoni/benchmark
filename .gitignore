@@ -279,3 +279,8 @@ Cargo.lock
 
 # MSVC Windows builds of rustc generate these, which store debugging information
 *.pdb
+flamegraph.svg  
+perf.data   
+perf.script  
+stacks.folded
+
