@@ -7,12 +7,11 @@ use hyper::{
 use reqwest::Client as ReqwestClient;
 use std::convert::Infallible;
 use std::env;
-use std::sync::Arc;
+//use std::sync::Arc;
 use std::time::Duration;
 use chrono::Utc;
 
 async fn getclient(
-    client: Arc<ReqwestClient>,
     _req: Request<Body>,
     m1path: String,
     m2url: String,
@@ -25,21 +24,17 @@ async fn getclient(
         return Ok(not_found);
     }
 
+    let client = ReqwestClient::builder()
+        .tcp_keepalive(Duration::from_secs(30))
+        .build()
+        .unwrap();
+
     let response = client.get(&m2url).send().await.unwrap();
     if !response.status().is_success() {
         panic!("Erro na requisição: {}", response.status());
     }
     let bytes = response.bytes().await.unwrap();
     let body = Body::from(bytes);
-
-    ///////////// implementação usando text 
-    // o desempenho é um pouco pior
-    // let response = client.get(&m2url).send().await.unwrap();
-    // if !response.status().is_success() {
-    //     panic!("Erro na requisição: {}", response.status());
-    // }
-    // let text = response.text().await.unwrap();
-    // let body = Body::from(text);
 
     let response = Response::builder()
         .status(hyper::StatusCode::OK)
@@ -55,15 +50,15 @@ async fn getclient(
 
 #[tokio::main(worker_threads = 32)]
 async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
-    let client = Arc::new(
-        ReqwestClient::builder()
-            .tcp_keepalive(Duration::from_secs(30))
-            .build()
-            .unwrap(),
-    );
+    // let client = Arc::new(
+    //     ReqwestClient::builder()
+    //         .tcp_keepalive(Duration::from_secs(30))
+    //         .build()
+    //         .unwrap(),
+    // );
 
     let make_svc = make_service_fn(move |_conn| {
-        let client = client.clone();
+        //let client = client.clone();
         async {
             let m1path = if let Ok(val) = env::var("M1_PATH") {
                 val
@@ -89,7 +84,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>
             let m2url: String = format!("{}:{}{}", domain, port, path);
 
             Ok::<_, Infallible>(service_fn(move |req| {
-                getclient(client.clone(), req, m1path.clone(), m2url.clone())
+                getclient(req, m1path.clone(), m2url.clone())
             }))
         }
     });

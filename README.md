@@ -32,7 +32,7 @@ A máquina que está sendo usada para fazer os testes é:
 | address sizes | 39 bits physical, 48 bits virtual |
 
 
-Usamos o k6 para fazer nossos testes de stress.
+Usamos o k6 e wrk para fazer nossos testes de stress.
 
 ```bash
 $ cd k6
@@ -43,6 +43,19 @@ $ k6 run -d 90s -u 100 script-get.js
     /  \/    \    |     (   /   ‾‾\  
    /          \   |  |\  \ |  (‾)  | 
   / __________ \  |__| \__\ \_____/ .io
+```
+
+```bash
+$ wrk -t12 -c100 -d15s http://localhost:8080/v1/user
+Running 15s test @ http://localhost:8080/v1/user
+  12 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     1.09ms    1.75ms  59.07ms   98.98%
+    Req/Sec     8.06k     1.07k   26.57k    86.95%
+  1449705 requests in 15.10s, 5.20GB read
+Requests/sec:  96009.25
+Transfer/sec:    352.69MB
+
 ```
 
 O nosso objetivo é só termos uma noção quando o assunto é memória, cpu, quantidade de requisições 
