@@ -1,9 +1,7 @@
-//@jeffotoni
 use hyper::client::Client;
 use hyper::client::HttpConnector;
 use hyper::http::Uri;
-use rocket::Config;
- 
+
 #[macro_use]
 extern crate rocket;
 
@@ -13,16 +11,16 @@ struct AppState {
 }
 
 #[get("/v1/user")]
-async fn index(ctx: &rocket::State<AppState>) -> String {
+async fn index(ctx: &rocket::State<AppState>) -> Vec<u8> {
     let resp = ctx
         .client
         .get(ctx.uri.clone())
         .await
         .expect("request failed");
-    let body_bytes = hyper::body::to_bytes(resp.into_body())
+    hyper::body::to_bytes(resp.into_body())
         .await
-        .expect("body read failed");
-    return String::from_utf8(body_bytes.to_vec()).unwrap();
+        .expect("body read failed")
+        .to_vec()
 }
 
 #[launch]
@@ -31,14 +29,11 @@ fn rocket() -> _ {
     let client = hyper::Client::new();
     let uri = Uri::from_static(url);
     let state = AppState { client, uri };
-    
-    let config = Config {
-        address: "127.0.0.1".parse().unwrap(),
-        port: 8080, // Change the port number here
-        ..Config::default()
-    };
+    let mut config = rocket::Config::default();
+    config.address = "127.0.0.1".parse().unwrap();
+    config.port = 8080;
+    //config.workers = 64;    
     rocket::custom(config)
         .manage(state)
         .mount("/", routes![index])
-    //rocket::build().manage(state).mount("/", routes![index])
 }
