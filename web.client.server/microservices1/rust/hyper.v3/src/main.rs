@@ -9,8 +9,9 @@ use std::convert::Infallible;
 use std::env;
 use std::sync::Arc;
 use std::time::Duration;
+use chrono::Utc;
 
-async fn get_client(
+async fn getclient(
     client: Arc<ReqwestClient>,
     _req: Request<Body>,
     m1path: String,
@@ -24,7 +25,7 @@ async fn get_client(
         return Ok(not_found);
     }
 
-    let response = client.get(&m2url).send().await.unwrap(); // Corrigido aqui
+    let response = client.get(&m2url).send().await.unwrap();
     if !response.status().is_success() {
         panic!("Erro na requisição: {}", response.status());
     }
@@ -34,6 +35,9 @@ async fn get_client(
     let response = Response::builder()
         .status(hyper::StatusCode::OK)
         .header(hyper::header::CONTENT_TYPE, "application/json")
+        .header("Engine", "Rust/Hyper")
+        .header("Location", "/v1/user")
+        .header("Date", Utc::now().to_rfc3339())
         .body(body)
         .unwrap();
 
@@ -76,7 +80,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>
             let m2url: String = format!("{}:{}{}", domain, port, path);
 
             Ok::<_, Infallible>(service_fn(move |req| {
-                get_client(client.clone(), req, m1path.clone(), m2url.clone())
+                getclient(client.clone(), req, m1path.clone(), m2url.clone())
             }))
         }
     });

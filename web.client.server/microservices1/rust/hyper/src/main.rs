@@ -10,7 +10,7 @@ use std::time::Duration;
 use hyper::header::HeaderValue;
 use std::env;
 
-async fn get_client(client: Arc<Client>, _req: Request<Body>, m1path: String, m2url: String) -> Result<Response<Body>, Infallible> {
+async fn getclient(client: Arc<Client>, _req: Request<Body>, m1path: String, m2url: String) -> Result<Response<Body>, Infallible> {
     if _req.uri().path() != m1path {
         let not_found = Response::builder()
             .status(hyper::StatusCode::NOT_FOUND)
@@ -75,7 +75,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync +'static>>
             let m2url: String = format!("{}{}{}{}", domain,":",port, path);
             //println!("{}",m2url);
 
-           Ok::<_, Infallible>(service_fn(move |req| get_client(client.clone(), req, m1path.clone(), m2url.clone())))
+           Ok::<_, Infallible>(service_fn(move |req| getclient(client.clone(), req, m1path.clone(), m2url.clone())))
         }
     });
 
