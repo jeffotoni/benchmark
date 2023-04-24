@@ -1,13 +1,15 @@
+use hyper::client::Client;
+use hyper::client::HttpConnector;
+use rocket::State;
+use rocket::Config;
+
 #[macro_use]
 extern crate rocket;
 
-use rocket::Config;
-
 #[get("/v1/user")]
-async fn index() -> String {
+async fn index(client: &State<Client<HttpConnector>>) -> String {
     // change here to the microservice 2 url.
     let url = "http://127.0.0.1:3000/v1/avatar";
-    let client = hyper::Client::new();
     let req = hyper::Request::builder()
         .method(hyper::Method::GET)
         .uri(url)
@@ -22,14 +24,12 @@ async fn index() -> String {
 
 #[launch]
 fn rocket() -> _ {
+    let client = hyper::Client::new();
     let config = Config {
         address: "127.0.0.1".parse().unwrap(),
         port: 8080, // Change the port number here
         ..Config::default()
     };
-    rocket::custom(config).mount("/", routes![index])
+    rocket::custom(config).manage(client).mount("/", routes![index])
+    //rocket::build().manage(client).mount("/", routes![index])
 }
-// #[launch]
-// fn rocket() -> _ {
-//     rocket::build().mount("/", routes![index])
-// }
