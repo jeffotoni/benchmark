@@ -30,6 +30,7 @@ async fn getclient(
         panic!("Erro na requisição: {}", response.status());
     }
     let bytes = response.bytes().await.unwrap();
+    let content_length = bytes.len();
     let body = Body::from(bytes);
 
     ///////////// implementação usando text 
@@ -44,16 +45,17 @@ async fn getclient(
     let response = Response::builder()
         .status(hyper::StatusCode::OK)
         .header(hyper::header::CONTENT_TYPE, "application/json")
-        .header("Engine", "Rust/Hyper")
+        .header("Engine", "Rust/Hyperv3")
         .header("Location", "/v1/user")
         .header("Date", Utc::now().to_rfc3339())
+        .header(hyper::header::CONTENT_LENGTH, content_length)
         .body(body)
         .unwrap();
 
     Ok(response)
 }
 
-#[tokio::main(worker_threads = 32)]
+#[tokio::main(worker_threads = 12)]
 async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
     let client = Arc::new(
         ReqwestClient::builder()
