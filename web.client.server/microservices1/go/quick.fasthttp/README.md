@@ -3,7 +3,6 @@
 Abaixo o melhor resultado encontrado para o quick server e o client que dispara para nosso server.client na porta 3000 é feito em
 fastHttp só para vermos a dimensão e poder desta lib.
 
-### 90 segundos
 ```bash
 CPU: 32,22
 RAM: 21,04
@@ -48,17 +47,18 @@ default ✓ [======================================] 100 VUs  1m30s
 
 #### wrk
 ```bash
-CPU: 57,04
-RAM: 21,04
- wrk -t12 -c100 -d90s http://localhost:8080/v1/user
+CPU: 57,99
+RAM: 21,07
+wrk -t12 -c100 -d90s http://localhost:8080/v1/user
 Running 2m test @ http://localhost:8080/v1/user
   12 threads and 100 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency     0.95ms  747.83us  60.65ms   89.01%
-    Req/Sec     8.99k   724.00    20.28k    77.23%
-  9663324 requests in 1.50m, 34.63GB read
-Requests/sec: 107317.99
-Transfer/sec:    393.83MB
+    Latency     0.93ms  665.32us  53.89ms   85.90%
+    Req/Sec     9.14k   645.27    19.37k    78.70%
+  9826290 requests in 1.50m, 35.21GB read
+Requests/sec: 109059.92
+Transfer/sec:    400.22MB
+
 
 ```
 
