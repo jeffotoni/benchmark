@@ -13,6 +13,7 @@ para desenvolvimento de backend linguagens como:
  - Rust
  - Javascript Nodejs
  - Javascript Deno
+ - Javascript Bun
  - Dart
  - Lua
  - Elixir
