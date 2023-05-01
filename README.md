@@ -27,6 +27,7 @@ A máquina que está sendo usada para fazer os testes é:
 |----------|----------|
 | Vendor | Genuine Intel |
 | Model | Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz |
+| RAM | 32G |
 | Cache | 12288kb |
 | siblings/núcleos | 12 |
 | bogomips | 5199.98 |

@@ -1,5 +1,9 @@
 // @jeffotoni
 import { fetch as externalFetch } from "bun";
+import { Agent as HttpAgent } from "http";
+
+const httpAgent = new HttpAgent({ keepAlive: true, keepAliveMsecs: 1000 });
+
 export default {
     port: 8080,
     async fetch(request) {
@@ -8,7 +12,11 @@ export default {
         if (pathname === "/v1/user" && request.method === "GET") {
             const externalServiceURL = "http://localhost:3000/v1/avatar";
             try {
-                const externalResponse = await externalFetch(externalServiceURL);
+                
+                const externalResponse = await externalFetch(externalServiceURL, {
+                  agent: httpAgent,
+                });
+
                 if (externalResponse.ok) {
                     const responseBody = await externalResponse.body;
                     return new Response(responseBody, {
