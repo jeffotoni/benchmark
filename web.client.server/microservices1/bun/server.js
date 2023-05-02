@@ -9,15 +9,18 @@ export default {
     async fetch(request) {
         const url = new URL(request.url);
         const { pathname } = url;
+	//Bun.gc(false);
         if (pathname === "/v1/user" && request.method === "GET") {
             const externalServiceURL = "http://localhost:3000/v1/avatar";
+	    Bun.gc(false);
             try {
                 
                 const externalResponse = await externalFetch(externalServiceURL, {
                   agent: httpAgent,
                 });
-
+		//Bun.gc(false);
                 if (externalResponse.ok) {
+		    //Bun.gc(false);
                     const responseBody = await externalResponse.body;
                     return new Response(responseBody, {
                         headers: { "Content-Type": "application/json" },
