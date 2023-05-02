@@ -1,5 +1,6 @@
 # bun 
 
+[bun sh doc](https://bun.sh/docs)
 
 
 ```bash
