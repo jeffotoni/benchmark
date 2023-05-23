@@ -1,0 +1,4 @@
+github.com/jeffotoni/gcache v0.0.0-20230523234421-443d23cf0a17 h1:buYlhwstZYxGBrYC5G14fKe2803lxDEjmgyoyGvt76s=
+github.com/jeffotoni/gcache v0.0.0-20230523234421-443d23cf0a17/go.mod h1:dmcu8KA3ww6svcHp9e0mtV3okJVt3LWqhWHGSo+RCFg=
+github.com/patrickmn/go-cache v2.1.0+incompatible h1:HRMgzkcYKYpi3C8ajMPV8OFXaaRUnok+kx1WdO15EQc=
+github.com/patrickmn/go-cache v2.1.0+incompatible/go.mod h1:3Qf8kWWT7OJRJbdiICTKqZju1ZixQ/KpMGzzAfe6+WQ=
