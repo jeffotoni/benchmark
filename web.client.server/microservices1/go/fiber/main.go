@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 var Domain string = os.Getenv("DOMAIN")
@@ -28,11 +29,17 @@ func init() {
 }
 func main() {
 	app := fiber.New()
+	app.Use(cors.New())
 
 	app.Get("/v1/user", Get)
+	app.Get("/ping", Ping)
 	log.Println("Run Server port 0.0.0.0:8080")
 	log.Println("[GET]  /v1/user")
 	app.Listen("0.0.0.0:8080")
+}
+func Ping(c *fiber.Ctx) (err error) {
+	c.Set("Content-Type", "application/json")
+	return c.Status(200).SendString("pong")
 }
 
 func Get(c *fiber.Ctx) (err error) {
