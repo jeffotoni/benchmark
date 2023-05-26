@@ -32,7 +32,8 @@ func main() {
 	log.Println("[GET]  /v1/user")
 
 	server := &http.Server{
-		Addr: "0.0.0.0:8080",
+		Addr:              "0.0.0.0:8080",
+		ReadHeaderTimeout: 5 * time.Second,
 	}
 	log.Fatal(server.ListenAndServe())
 }
@@ -47,14 +48,21 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println("Error Server connect:", err, " code:", code)
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(``))
+		_, err = w.Write([]byte(``))
+		if err != nil {
+			log.Printf("Error writing response: %v", err)
+		}
 		return
 	}
 	length := strconv.Itoa(len(body))
 	w.Header().Set("Content-Length", length)
 	w.WriteHeader(code)
-	w.Write(body)
-	return
+
+	_, err = w.Write(body)
+	if err != nil {
+		log.Printf("Error writing response: %v", err)
+		return
+	}
 }
 
 func Concat(strs ...string) string {
